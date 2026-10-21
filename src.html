@@ -1,7 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="in">
 <head>
   <meta charset="utf-8">
+  <!-- Bez JavaScriptu zůstává obsah vidět; s ním se schová a najede animací. -->
+  <script>document.documentElement.classList.remove("in");</script>
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Dex (@dex_hauls)</title>
   <meta name="description" content="Professional hauler. I find the best reps, check the QC and show you what's actually worth buying.">
@@ -231,6 +233,8 @@
       } catch (e) {}
 
       requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add("in"); }); });
+      // Skrytá karta prohlížeče rAF nespouští; obsah se ukáže i tak.
+      setTimeout(function () { root.classList.add("in"); }, 500);
       setTimeout(function () { root.classList.add("ready"); }, 1300);
 
       // Na telefonu bez myši se ruka po vstupu sama rozevře.
