@@ -1,18 +1,18 @@
 <!doctype html>
-<html lang="cs">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <title>Dex (@dex_hauls)</title>
-  <meta name="description" content="Rep finds, QC a hauly. Všechny odkazy Dex Finds na jednom místě.">
+  <meta name="description" content="Professional hauler. I find the best reps, check the QC and show you what's actually worth buying.">
   <meta name="theme-color" content="#0d0d0d">
   <meta name="color-scheme" content="dark">
   <meta property="og:title" content="Dex (@dex_hauls)">
-  <meta property="og:description" content="Dex Finds, KakoBuy, Discord, TikTok, Instagram">
-  <meta property="og:image" content="https://dexikos.com/dexfinds.png">
+  <meta property="og:description" content="Professional hauler. I find the best reps, check the QC and show you what's actually worth buying.">
+  <meta property="og:image" content="https://dexikos.com/pfp.webp">
   <meta property="og:url" content="https://dexikos.com/">
   <link rel="canonical" href="https://dexikos.com/">
-  <link rel="icon" href="icon-192.png" sizes="192x192">
+  <link rel="icon" href="pfp.webp">
   <link rel="apple-touch-icon" href="apple-touch-icon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -20,9 +20,6 @@
   <style>
     :root {
       --ink: #171717;
-      --muted: #73716f;
-      --line: #e4e3e0;
-      --soft: #f7f7f5;
       --tile: #f1f2f0;
       --spring: cubic-bezier(.34, 1.56, .64, 1);
       --ease: cubic-bezier(.22, 1, .36, 1);
@@ -44,96 +41,107 @@
       width: 100%;
       max-width: 440px;
       margin: 0 auto;
-      padding: max(34px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+      padding: max(44px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
       display: grid;
-      gap: 26px;
+      gap: 22px;
     }
     a { color: inherit; text-decoration: none; }
-    .stage { display: grid; gap: 14px; }
+    a:focus-visible { outline: 2px solid #fff; outline-offset: 3px; }
 
-    /* Ruka findů */
-    .hand { position: relative; display: block; height: 214px; margin: 0 -16px; -webkit-tap-highlight-color: transparent; }
+    /* Profil */
+    .who { display: grid; justify-items: center; text-align: center; gap: 0; }
+    .avatar {
+      width: 104px; height: 104px; border-radius: 999px;
+      padding: 3px;
+      background: conic-gradient(from 200deg, #fff, rgb(255 255 255 / .15), #fff, rgb(255 255 255 / .15), #fff);
+      animation: ring 8s linear infinite;
+      margin-bottom: 16px;
+    }
+    .avatar img { display: block; width: 100%; height: 100%; border-radius: 999px; object-fit: cover; border: 3px solid #0d0d0d; animation: ring 8s linear infinite reverse; }
+    @keyframes ring { to { rotate: 360deg; } }
+    h1 { margin: 0; font-weight: 400; font-size: 44px; line-height: 1; letter-spacing: -.05em; }
+    .handle { margin: 6px 0 0; font-size: 15px; font-weight: 400; color: rgb(255 255 255 / .55); }
+    .bio { margin: 14px 0 0; max-width: 310px; font-size: 16px; line-height: 1.45; color: rgb(255 255 255 / .82); }
+
+    .icons { display: flex; justify-content: center; gap: 10px; }
+    .icon {
+      width: 50px; height: 50px; border-radius: 999px;
+      display: grid; place-items: center;
+      background: rgb(255 255 255 / .07);
+      border: 1px solid rgb(255 255 255 / .1);
+      transition: transform .45s var(--spring), background .25s, color .25s;
+    }
+    .icon svg { width: 21px; height: 21px; }
+    .icon:hover { background: #fff; color: var(--ink); transform: translateY(-3px) rotate(-6deg); }
+    .icon:active { transform: scale(.92); }
+
+    /* Dlaždice Dex Finds s rukou findů */
+    .feature {
+      position: relative; display: block;
+      border-radius: 28px;
+      background: rgb(255 255 255 / .06);
+      border: 1px solid rgb(255 255 255 / .08);
+      overflow: hidden;
+      -webkit-tap-highlight-color: transparent;
+      transition: transform .45s var(--spring), background .25s;
+    }
+    .feature:hover { background: rgb(255 255 255 / .09); }
+    .feature:active { transform: scale(.98); }
+    .hand { position: relative; display: block; height: 212px; }
     .card {
       --gap: 0px; --rot: 0deg; --lift: 0px; --sc: .9;
-      position: absolute; left: 50%; top: 50%;
-      width: 116px; height: 148px;
+      position: absolute; left: 50%; top: 52%;
+      width: 108px; height: 138px;
       border-radius: 18px;
       background: #fff;
-      box-shadow: 0 16px 30px -20px rgb(20 20 20 / .35), 0 1px 2px rgb(20 20 20 / .05);
+      box-shadow: 0 16px 30px -18px rgb(0 0 0 / .7), 0 1px 2px rgb(0 0 0 / .2);
       display: grid; place-items: center;
       opacity: 0;
       transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) + 70px - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc));
       transition: transform .7s var(--spring), opacity .5s var(--ease), filter .3s;
-      transition-delay: calc(var(--k) * 70ms);
+      transition-delay: calc(300ms + var(--k) * 70ms);
     }
     .card img { width: 88%; height: 88%; object-fit: contain; pointer-events: none; }
-    .in .card { --gap: 52px; --rot: 7deg; --sc: 1; opacity: 1; transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc)); }
+    .in .card { --gap: 48px; --rot: 7deg; --sc: 1; opacity: 1; transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc)); }
     .in.ready .card { transition-delay: 0ms; }
-    .in.ready .hand:hover .card, .in.ready .hand.open .card { --gap: 66px; --rot: 10deg; }
-    .in.ready .hand:hover .card:not(:hover) { filter: opacity(.55); }
-    .in.ready .card:hover { --lift: 22px; --sc: 1.07; z-index: 9; }
-
-    .who { text-align: center; display: grid; gap: 6px; }
-    h1 {
-      margin: 0;
-      font-weight: 400;
-      font-size: clamp(56px, 17vw, 72px);
-      line-height: .95;
-      letter-spacing: -.055em;
-    }
-    .handle { margin: 0; font-size: 15px; font-weight: 400; color: rgb(255 255 255 / .55); }
+    .in.ready .feature:hover .card, .in.ready .feature.open .card { --gap: 62px; --rot: 10deg; }
+    .in.ready .feature:hover .card:not(:hover) { filter: opacity(.55); }
+    .in.ready .card:hover { --lift: 20px; --sc: 1.07; z-index: 9; }
+    .feature-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 12px 12px 22px; }
+    .feature-title { font-size: 20px; font-weight: 400; letter-spacing: -.02em; }
+    .feature-title small { display: block; margin-top: 2px; font-size: 13px; font-weight: 300; letter-spacing: 0; color: rgb(255 255 255 / .55); }
 
     /* Odkazy */
     nav { display: grid; gap: 10px; }
     .link {
-      position: relative;
       display: flex; align-items: center; gap: 14px;
-      height: 64px; padding: 0 10px 0 10px;
+      height: 64px; padding: 0 10px;
       border-radius: 999px;
+      border: 1px solid rgb(255 255 255 / .16);
       font-size: 17px; font-weight: 400; letter-spacing: -.01em;
-      transition: transform .45s var(--spring), background .25s, color .25s, border-color .25s;
+      transition: transform .45s var(--spring), background .25s;
     }
+    .link:hover { background: rgb(255 255 255 / .06); }
     .link:active { transform: scale(.97); }
-    .link:focus-visible, .social:focus-visible, .hand:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
-    .ic { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; overflow: hidden; }
-    .ic img { width: 100%; height: 100%; object-fit: cover; }
-    .ic.mark img { width: 64%; height: 64%; object-fit: contain; transition: transform .6s var(--spring); }
-    .link:hover .ic.mark img { transform: rotate(-12deg) scale(1.1); }
-    .primary .ic.mark { background: #fff !important; }
+    .link.primary { background: #fff; color: var(--ink); border-color: #fff; }
+    .ic { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; background: rgb(255 255 255 / .08); }
+    .primary .ic { background: var(--tile); }
     .ic svg { width: 21px; height: 21px; }
     .label { flex: 1; min-width: 0; }
-    .go { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; transition: transform .5s var(--spring), background .25s, color .25s; }
+    .tag { flex: none; padding: 5px 10px; border-radius: 999px; background: var(--tile); font-size: 13px; font-weight: 500; }
+    .go { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; background: rgb(255 255 255 / .08); transition: transform .5s var(--spring), background .25s, color .25s; }
     .go svg { width: 18px; height: 18px; }
-    .link:hover .go { transform: rotate(45deg); }
-
-    .socials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
-    .social {
-      display: grid; justify-items: center; align-content: center; gap: 8px;
-      height: 92px; border-radius: 24px;
-      font-size: 13px; font-weight: 400;
-      transition: transform .45s var(--spring), background .25s, color .25s;
-    }
-    .social svg { width: 26px; height: 26px; transition: transform .5s var(--spring); }
-    .social:hover svg { transform: translateY(-3px) scale(1.12) rotate(-6deg); }
-    .social:active { transform: scale(.95); }
+    .primary .go, .feature .go { background: #fff; color: var(--ink); }
+    .primary .go { background: var(--ink); color: #fff; }
+    .link:hover .go, .feature:hover .go { transform: rotate(45deg); }
+    .link:not(.primary):hover .go { background: #fff; color: var(--ink); }
 
     footer { text-align: center; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: #767676; }
 
     /* Vstup */
-    .rise { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .8s var(--spring); transition-delay: calc(300ms + var(--d, 0) * 60ms); }
+    .rise { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .8s var(--spring); transition-delay: calc(120ms + var(--d, 0) * 70ms); }
     .in .rise { opacity: 1; transform: none; }
 
-    /* Černá */
-    .link { background: transparent; border: 1px solid rgb(255 255 255 / .16); }
-    .link .ic { background: rgb(255 255 255 / .08); }
-    .link .go { background: rgb(255 255 255 / .08); }
-    .link:hover { background: rgb(255 255 255 / .06); }
-    .link:hover .go, .link.primary .go { background: #fff; color: var(--ink); }
-    .link.primary { background: #fff; color: var(--ink); border-color: #fff; }
-    .link.primary .ic { background: var(--tile); }
-    .link.primary .go { background: var(--ink); color: #fff; }
-    .social { background: rgb(255 255 255 / .06); }
-    .social:hover { background: #fff; color: var(--ink); }
     .glow { position: fixed; inset: -20% -20% auto; height: 70vh; background: radial-gradient(50% 50% at 50% 50%, rgb(255 255 255 / .09), transparent 70%); pointer-events: none; }
 
     /* Oblečení vznášející se v pozadí, hýbe se za prstem/myší */
@@ -149,7 +157,7 @@
     @keyframes drift { to { translate: 0 -16px; rotate: 4deg; } }
 
     @media (min-width: 700px) {
-      main { padding-top: 64px; }
+      main { padding-top: 72px; }
     }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
@@ -165,37 +173,46 @@
     <img src="finds/cactus.webp" alt="" style="--w:48vw;--x:-16vw;--t:72vh;--r:-8deg;--b:2px;--z:1.4;--dl:-7s">
   </div>
   <main>
-    <div class="stage">
-      <a class="hand" href="https://update.dexfinds.com/finds?ref=bio" aria-label="Finds na Dex Finds" data-site>
-        <span class="card" style="--i:-2;--y:20px;--k:0"><img src="finds/maya.webp" alt=""></span>
-        <span class="card" style="--i:-1;--y:6px;--k:1"><img src="finds/cactus.webp" alt=""></span>
+    <header class="who">
+      <div class="avatar rise" style="--d:0"><img src="pfp.webp" alt="Dex" width="320" height="320"></div>
+      <h1 class="rise" style="--d:1">Dex</h1>
+      <p class="handle rise" style="--d:1">@dex_hauls</p>
+      <p class="bio rise" style="--d:2">Professional hauler. I find the best reps, check the QC and show you what's actually worth buying.</p>
+    </header>
+
+    <div class="icons rise" style="--d:3">
+      <a class="icon" href="https://www.instagram.com/dex_hauls/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg></a>
+      <a class="icon" href="https://www.tiktok.com/@dex_hauls" aria-label="TikTok"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg></a>
+      <a class="icon" href="https://www.youtube.com/@Dex_hauls" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/></svg></a>
+      <a class="icon" href="https://discord.gg/dexhauls" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></a>
+    </div>
+
+    <a class="feature rise" href="https://update.dexfinds.com/?ref=bio" data-site style="--d:4">
+      <span class="hand" aria-hidden="true">
+        <span class="card" style="--i:-2;--y:18px;--k:0"><img src="finds/maya.webp" alt=""></span>
+        <span class="card" style="--i:-1;--y:5px;--k:1"><img src="finds/cactus.webp" alt=""></span>
         <span class="card" style="--i:0;--y:0px;--k:2"><img src="finds/bogo.webp" alt=""></span>
-        <span class="card" style="--i:1;--y:6px;--k:3"><img src="finds/tn.webp" alt=""></span>
-        <span class="card" style="--i:2;--y:20px;--k:4"><img src="finds/af1.webp" alt=""></span>
-      </a>
-    </div>
-
-    <div class="who rise" style="--d:1">
-      <h1>Dex</h1>
-      <p class="handle">@dex_hauls</p>
-    </div>
-
-    <nav aria-label="Odkazy">
-      <a class="link primary rise" href="https://update.dexfinds.com/?ref=bio" data-site style="--d:2">
-        <span class="ic mark"><img src="mark.png" alt=""></span>
-        <span class="label">Dex Finds</span>
+        <span class="card" style="--i:1;--y:5px;--k:3"><img src="finds/tn.webp" alt=""></span>
+        <span class="card" style="--i:2;--y:18px;--k:4"><img src="finds/af1.webp" alt=""></span>
+      </span>
+      <span class="feature-bar">
+        <span class="feature-title">Dex Finds<small>All my finds with QC photos</small></span>
         <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
-      </a>
-      <a class="link rise" href="https://ikako.vip/r/dexikos" rel="sponsored" style="--d:3">
+      </span>
+    </a>
+
+    <nav aria-label="Links">
+      <a class="link primary rise" href="https://ikako.vip/r/dexikos" rel="sponsored" style="--d:5">
         <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
         <span class="label">Join KakoBuy</span>
+        <span class="tag">$410</span>
         <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
       </a>
-      <div class="socials">
-        <a class="social rise" href="https://discord.gg/dexhauls" style="--d:4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg>Discord</a>
-        <a class="social rise" href="https://www.tiktok.com/@dex_hauls" style="--d:5"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>TikTok</a>
-        <a class="social rise" href="https://www.instagram.com/dex_hauls" style="--d:6"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M7.0301.084c-1.2768.0602-2.1487.264-2.911.5634-.7888.3075-1.4575.72-2.1228 1.3877-.6652.6677-1.075 1.3368-1.3802 2.127-.2954.7638-.4956 1.6365-.552 2.914-.0564 1.2775-.0689 1.6882-.0626 4.947.0062 3.2586.0206 3.6671.0825 4.9473.061 1.2765.264 2.1482.5635 2.9107.308.7889.72 1.4573 1.388 2.1228.6679.6655 1.3365 1.0743 2.1285 1.38.7632.295 1.6361.4961 2.9134.552 1.2773.056 1.6884.069 4.9462.0627 3.2578-.0062 3.668-.0207 4.9478-.0814 1.28-.0607 2.147-.2652 2.9098-.5633.7889-.3086 1.4578-.72 2.1228-1.3881.665-.6682 1.0745-1.3378 1.3795-2.1284.2957-.7632.4966-1.636.552-2.9124.056-1.2809.0692-1.6898.063-4.948-.0063-3.2583-.021-3.6668-.0817-4.9465-.0607-1.2797-.264-2.1487-.5633-2.9117-.3084-.7889-.72-1.4568-1.3876-2.1228C21.2982 1.33 20.628.9208 19.8378.6165 19.074.321 18.2017.1197 16.9244.0645 15.6471.0093 15.236-.005 11.977.0014 8.718.0076 8.31.0215 7.0301.0839m.1402 21.6932c-1.17-.0509-1.8053-.2453-2.2287-.408-.5606-.216-.96-.4771-1.3819-.895-.422-.4178-.6811-.8186-.9-1.378-.1644-.4234-.3624-1.058-.4171-2.228-.0595-1.2645-.072-1.6442-.079-4.848-.007-3.2037.0053-3.583.0607-4.848.05-1.169.2456-1.805.408-2.2282.216-.5613.4762-.96.895-1.3816.4188-.4217.8184-.6814 1.3783-.9003.423-.1651 1.0575-.3614 2.227-.4171 1.2655-.06 1.6447-.072 4.848-.079 3.2033-.007 3.5835.005 4.8495.0608 1.169.0508 1.8053.2445 2.228.408.5608.216.96.4754 1.3816.895.4217.4194.6816.8176.9005 1.3787.1653.4217.3617 1.056.4169 2.2263.0602 1.2655.0739 1.645.0796 4.848.0058 3.203-.0055 3.5834-.061 4.848-.051 1.17-.245 1.8055-.408 2.2294-.216.5604-.4763.96-.8954 1.3814-.419.4215-.8181.6811-1.3783.9-.4224.1649-1.0577.3617-2.2262.4174-1.2656.0595-1.6448.072-4.8493.079-3.2045.007-3.5825-.006-4.848-.0608M16.953 5.5864A1.44 1.44 0 1 0 18.39 4.144a1.44 1.44 0 0 0-1.437 1.4424M5.8385 12.012c.0067 3.4032 2.7706 6.1557 6.173 6.1493 3.4026-.0065 6.157-2.7701 6.1506-6.1733-.0065-3.4032-2.771-6.1565-6.174-6.1498-3.403.0067-6.156 2.771-6.1496 6.1738M8 12.0077a4 4 0 1 1 4.008 3.9921A3.9996 3.9996 0 0 1 8 12.0077"/></svg>Instagram</a>
-      </div>
+      <a class="link rise" href="https://discord.gg/dexhauls" style="--d:6">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.946 2.4189-2.1568 2.4189Z"/></svg></span>
+        <span class="label">Discord server</span>
+        <span class="go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M8 7h9v9"/></svg></span>
+      </a>
     </nav>
 
     <footer class="rise" style="--d:7">© Dex Finds</footer>
@@ -214,6 +231,12 @@
       } catch (e) {}
 
       requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add("in"); }); });
+      setTimeout(function () { root.classList.add("ready"); }, 1300);
+
+      // Na telefonu bez myši se ruka po vstupu sama rozevře.
+      if (matchMedia("(hover: none)").matches) {
+        setTimeout(function () { document.querySelector(".feature").classList.add("open"); }, 1500);
+      }
 
       if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
         addEventListener("pointermove", function (e) {
@@ -221,14 +244,6 @@
           root.style.setProperty("--py", ((e.clientY / innerHeight) - .5) * 30);
         });
       }
-      setTimeout(function () { root.classList.add("ready"); }, 1100);
-
-      // Na telefonu první ťuknutí ruku rozevře, druhé otevře web.
-      var hand = document.querySelector(".hand");
-      hand.addEventListener("click", function (e) {
-        if (matchMedia("(hover: none)").matches && !hand.classList.contains("open")) { e.preventDefault(); hand.classList.add("open"); }
-      });
-
     })();
   </script>
 </body>

@@ -7,6 +7,7 @@ const html = readFileSync(new URL("src.html", dir), "utf8")
   .replaceAll("%%ARROW%%", arrow)
   .replaceAll("%%DISCORD%%", icons.discord)
   .replaceAll("%%TIKTOK%%", icons.tiktok)
-  .replaceAll("%%INSTAGRAM%%", icons.instagram);
+  .replaceAll("%%INSTAGRAM%%", icons.instagram)
+  .replaceAll("%%YOUTUBE%%", icons.youtube);
 writeFileSync(new URL("index.html", dir), html);
 console.log("index.html", html.length);
