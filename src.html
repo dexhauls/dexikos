@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="cs">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>Dex (@dex_hauls)</title>
+  <meta name="description" content="Rep finds, QC a hauly. Všechny odkazy Dex Finds na jednom místě.">
+  <meta name="theme-color" content="#0d0d0d">
+  <meta name="color-scheme" content="dark">
+  <meta property="og:title" content="Dex (@dex_hauls)">
+  <meta property="og:description" content="Dex Finds, KakoBuy, Discord, TikTok, Instagram">
+  <meta property="og:image" content="https://dexikos.com/dexfinds.png">
+  <meta property="og:url" content="https://dexikos.com/">
+  <link rel="canonical" href="https://dexikos.com/">
+  <link rel="icon" href="icon-192.png" sizes="192x192">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --ink: #171717;
+      --muted: #73716f;
+      --line: #e4e3e0;
+      --soft: #f7f7f5;
+      --tile: #f1f2f0;
+      --spring: cubic-bezier(.34, 1.56, .64, 1);
+      --ease: cubic-bezier(.22, 1, .36, 1);
+    }
+    * { box-sizing: border-box; }
+    html, body { margin: 0; }
+    body {
+      min-height: 100svh;
+      font-family: "DM Sans", Arial, sans-serif;
+      font-weight: 300;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      background: #0d0d0d;
+      color: #fff;
+    }
+    main {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 440px;
+      margin: 0 auto;
+      padding: max(34px, env(safe-area-inset-top)) 16px max(28px, env(safe-area-inset-bottom));
+      display: grid;
+      gap: 26px;
+    }
+    a { color: inherit; text-decoration: none; }
+    .stage { display: grid; gap: 14px; }
+
+    /* Ruka findů */
+    .hand { position: relative; display: block; height: 214px; margin: 0 -16px; -webkit-tap-highlight-color: transparent; }
+    .card {
+      --gap: 0px; --rot: 0deg; --lift: 0px; --sc: .9;
+      position: absolute; left: 50%; top: 50%;
+      width: 116px; height: 148px;
+      border-radius: 18px;
+      background: #fff;
+      box-shadow: 0 16px 30px -20px rgb(20 20 20 / .35), 0 1px 2px rgb(20 20 20 / .05);
+      display: grid; place-items: center;
+      opacity: 0;
+      transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) + 70px - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc));
+      transition: transform .7s var(--spring), opacity .5s var(--ease), filter .3s;
+      transition-delay: calc(var(--k) * 70ms);
+    }
+    .card img { width: 88%; height: 88%; object-fit: contain; pointer-events: none; }
+    .in .card { --gap: 52px; --rot: 7deg; --sc: 1; opacity: 1; transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc)); }
+    .in.ready .card { transition-delay: 0ms; }
+    .in.ready .hand:hover .card, .in.ready .hand.open .card { --gap: 66px; --rot: 10deg; }
+    .in.ready .hand:hover .card:not(:hover) { filter: opacity(.55); }
+    .in.ready .card:hover { --lift: 22px; --sc: 1.07; z-index: 9; }
+
+    .who { text-align: center; display: grid; gap: 6px; }
+    h1 {
+      margin: 0;
+      font-weight: 400;
+      font-size: clamp(56px, 17vw, 72px);
+      line-height: .95;
+      letter-spacing: -.055em;
+    }
+    .handle { margin: 0; font-size: 15px; font-weight: 400; color: rgb(255 255 255 / .55); }
+
+    /* Odkazy */
+    nav { display: grid; gap: 10px; }
+    .link {
+      position: relative;
+      display: flex; align-items: center; gap: 14px;
+      height: 64px; padding: 0 10px 0 10px;
+      border-radius: 999px;
+      font-size: 17px; font-weight: 400; letter-spacing: -.01em;
+      transition: transform .45s var(--spring), background .25s, color .25s, border-color .25s;
+    }
+    .link:active { transform: scale(.97); }
+    .link:focus-visible, .social:focus-visible, .hand:focus-visible { outline: 2px solid currentColor; outline-offset: 3px; }
+    .ic { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; overflow: hidden; }
+    .ic img { width: 100%; height: 100%; object-fit: cover; }
+    .ic.mark img { width: 64%; height: 64%; object-fit: contain; transition: transform .6s var(--spring); }
+    .link:hover .ic.mark img { transform: rotate(-12deg) scale(1.1); }
+    .primary .ic.mark { background: #fff !important; }
+    .ic svg { width: 21px; height: 21px; }
+    .label { flex: 1; min-width: 0; }
+    .go { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; transition: transform .5s var(--spring), background .25s, color .25s; }
+    .go svg { width: 18px; height: 18px; }
+    .link:hover .go { transform: rotate(45deg); }
+
+    .socials { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .social {
+      display: grid; justify-items: center; align-content: center; gap: 8px;
+      height: 92px; border-radius: 24px;
+      font-size: 13px; font-weight: 400;
+      transition: transform .45s var(--spring), background .25s, color .25s;
+    }
+    .social svg { width: 26px; height: 26px; transition: transform .5s var(--spring); }
+    .social:hover svg { transform: translateY(-3px) scale(1.12) rotate(-6deg); }
+    .social:active { transform: scale(.95); }
+
+    footer { text-align: center; font-size: 12px; letter-spacing: .15em; text-transform: uppercase; color: #767676; }
+
+    /* Vstup */
+    .rise { opacity: 0; transform: translateY(18px); transition: opacity .6s var(--ease), transform .8s var(--spring); transition-delay: calc(300ms + var(--d, 0) * 60ms); }
+    .in .rise { opacity: 1; transform: none; }
+
+    /* Černá */
+    .link { background: transparent; border: 1px solid rgb(255 255 255 / .16); }
+    .link .ic { background: rgb(255 255 255 / .08); }
+    .link .go { background: rgb(255 255 255 / .08); }
+    .link:hover { background: rgb(255 255 255 / .06); }
+    .link:hover .go, .link.primary .go { background: #fff; color: var(--ink); }
+    .link.primary { background: #fff; color: var(--ink); border-color: #fff; }
+    .link.primary .ic { background: var(--tile); }
+    .link.primary .go { background: var(--ink); color: #fff; }
+    .social { background: rgb(255 255 255 / .06); }
+    .social:hover { background: #fff; color: var(--ink); }
+    .glow { position: fixed; inset: -20% -20% auto; height: 70vh; background: radial-gradient(50% 50% at 50% 50%, rgb(255 255 255 / .09), transparent 70%); pointer-events: none; }
+
+    /* Oblečení vznášející se v pozadí, hýbe se za prstem/myší */
+    .float { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+    .float img {
+      position: absolute; width: var(--w); max-width: 420px; left: var(--x); top: var(--t);
+      filter: blur(var(--b)) brightness(.8);
+      opacity: .38;
+      transform: translate(calc(var(--px, 0) * var(--z) * 1px), calc(var(--py, 0) * var(--z) * 1px)) rotate(var(--r));
+      transition: transform 1.2s var(--ease);
+      animation: drift 9s ease-in-out infinite alternate; animation-delay: var(--dl);
+    }
+    @keyframes drift { to { translate: 0 -16px; rotate: 4deg; } }
+
+    @media (min-width: 700px) {
+      main { padding-top: 64px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="glow" aria-hidden="true"></div>
+  <div class="float" aria-hidden="true">
+    <img src="finds/maya.webp" alt="" style="--w:46vw;--x:-12vw;--t:6vh;--r:-14deg;--b:2px;--z:-1.2;--dl:-2s">
+    <img src="finds/tn.webp" alt="" style="--w:50vw;--x:62vw;--t:58vh;--r:18deg;--b:1px;--z:.9;--dl:-5s">
+    <img src="finds/bogo.webp" alt="" style="--w:40vw;--x:70vw;--t:-4vh;--r:12deg;--b:3px;--z:-.6;--dl:-1s">
+    <img src="finds/cactus.webp" alt="" style="--w:48vw;--x:-16vw;--t:72vh;--r:-8deg;--b:2px;--z:1.4;--dl:-7s">
+  </div>
+  <main>
+    <div class="stage">
+      <a class="hand" href="https://update.dexfinds.com/finds?ref=bio" aria-label="Finds na Dex Finds" data-site>
+        <span class="card" style="--i:-2;--y:20px;--k:0"><img src="finds/maya.webp" alt=""></span>
+        <span class="card" style="--i:-1;--y:6px;--k:1"><img src="finds/cactus.webp" alt=""></span>
+        <span class="card" style="--i:0;--y:0px;--k:2"><img src="finds/bogo.webp" alt=""></span>
+        <span class="card" style="--i:1;--y:6px;--k:3"><img src="finds/tn.webp" alt=""></span>
+        <span class="card" style="--i:2;--y:20px;--k:4"><img src="finds/af1.webp" alt=""></span>
+      </a>
+    </div>
+
+    <div class="who rise" style="--d:1">
+      <h1>Dex</h1>
+      <p class="handle">@dex_hauls</p>
+    </div>
+
+    <nav aria-label="Odkazy">
+      <a class="link primary rise" href="https://update.dexfinds.com/?ref=bio" data-site style="--d:2">
+        <span class="ic mark"><img src="mark.png" alt=""></span>
+        <span class="label">Dex Finds</span>
+        <span class="go">%%ARROW%%</span>
+      </a>
+      <a class="link rise" href="https://ikako.vip/r/dexikos" rel="sponsored" style="--d:3">
+        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
+        <span class="label">Join KakoBuy</span>
+        <span class="go">%%ARROW%%</span>
+      </a>
+      <div class="socials">
+        <a class="social rise" href="https://discord.gg/dexhauls" style="--d:4"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%DISCORD%%"/></svg>Discord</a>
+        <a class="social rise" href="https://www.tiktok.com/@dex_hauls" style="--d:5"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%TIKTOK%%"/></svg>TikTok</a>
+        <a class="social rise" href="https://www.instagram.com/dex_hauls" style="--d:6"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%INSTAGRAM%%"/></svg>Instagram</a>
+      </div>
+    </nav>
+
+    <footer class="rise" style="--d:7">© Dex Finds</footer>
+  </main>
+  <script>
+    (function () {
+      var root = document.documentElement;
+      // ?ref= z bia (tiktok, ig…) jde dál na DexFinds, ať analytika ví, odkud návštěva přišla.
+      try {
+        var ref = new URLSearchParams(location.search).get("ref");
+        if (ref && /^[\w-]{1,32}$/.test(ref)) {
+          document.querySelectorAll("[data-site]").forEach(function (a) {
+            var url = new URL(a.href); url.searchParams.set("ref", ref); a.href = url.toString();
+          });
+        }
+      } catch (e) {}
+
+      requestAnimationFrame(function () { requestAnimationFrame(function () { root.classList.add("in"); }); });
+
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        addEventListener("pointermove", function (e) {
+          root.style.setProperty("--px", ((e.clientX / innerWidth) - .5) * 30);
+          root.style.setProperty("--py", ((e.clientY / innerHeight) - .5) * 30);
+        });
+      }
+      setTimeout(function () { root.classList.add("ready"); }, 1100);
+
+      // Na telefonu první ťuknutí ruku rozevře, druhé otevře web.
+      var hand = document.querySelector(".hand");
+      hand.addEventListener("click", function (e) {
+        if (matchMedia("(hover: none)").matches && !hand.classList.contains("open")) { e.preventDefault(); hand.classList.add("open"); }
+      });
+
+    })();
+  </script>
+</body>
+</html>
