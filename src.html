@@ -130,7 +130,40 @@
     .primary .ic { background: var(--tile); }
     .ic svg { width: 21px; height: 21px; }
     .label { flex: 1; min-width: 0; }
-    .tag { flex: none; padding: 5px 10px; border-radius: 999px; background: var(--tile); font-size: 13px; font-weight: 500; }
+    /* Join KakoBuy as a coupon: notches cut where the stub tears off, a gift on the stub, a glint now and then */
+    .coupon {
+      --stub: 112px; --notch: 11px;
+      position: relative; display: flex; height: 78px;
+      border-radius: 22px; background: #fff; color: var(--ink);
+      -webkit-mask: radial-gradient(circle at calc(100% - var(--stub)) 0, #0000 var(--notch), #000 calc(var(--notch) + .5px)) top / 100% 51% no-repeat,
+                    radial-gradient(circle at calc(100% - var(--stub)) 100%, #0000 var(--notch), #000 calc(var(--notch) + .5px)) bottom / 100% 51% no-repeat;
+              mask: radial-gradient(circle at calc(100% - var(--stub)) 0, #0000 var(--notch), #000 calc(var(--notch) + .5px)) top / 100% 51% no-repeat,
+                    radial-gradient(circle at calc(100% - var(--stub)) 100%, #0000 var(--notch), #000 calc(var(--notch) + .5px)) bottom / 100% 51% no-repeat;
+      transition: transform .45s var(--spring);
+    }
+    .coupon::after {
+      content: ""; position: absolute; inset: 0; pointer-events: none;
+      background: linear-gradient(105deg, transparent 35%, rgb(255 255 255 / .9) 48%, rgb(23 23 23 / .06) 52%, transparent 65%);
+      transform: translateX(-120%);
+      animation: glint 5s var(--ease) 2s infinite;
+    }
+    @keyframes glint { 0%, 70% { transform: translateX(-120%); } 100% { transform: translateX(120%); } }
+    .coupon:hover { transform: translateY(-2px) rotate(-.6deg); }
+    .coupon:active { transform: scale(.97); }
+    .coupon-main { flex: 1; min-width: 0; display: flex; align-items: center; gap: 14px; padding: 0 14px 0 12px; font-size: 18px; font-weight: 400; letter-spacing: -.01em; }
+    .coupon-main .ic { width: 50px; height: 50px; background: var(--tile); }
+    /* The mask would cut an outline away, so keyboard focus shows on the label */
+    .coupon:focus-visible { outline: none; }
+    .coupon:focus-visible .label { text-decoration: underline; text-underline-offset: 4px; }
+    .coupon-stub {
+      position: relative; flex: none; width: var(--stub);
+      display: grid; justify-items: center; align-content: center; gap: 3px;
+    }
+    .coupon-stub::before { content: ""; position: absolute; left: -1px; top: 14px; bottom: 14px; border-left: 2px dashed rgb(23 23 23 / .18); }
+    .gift { width: 22px; height: 22px; transform-origin: 50% 80%; transition: transform .6s var(--spring); }
+    .coupon:hover .gift { animation: wiggle .7s var(--ease); }
+    @keyframes wiggle { 20% { transform: rotate(-14deg) scale(1.15); } 45% { transform: rotate(10deg) scale(1.15); } 70% { transform: rotate(-5deg) scale(1.08); } 100% { transform: none; } }
+    .amount { font-size: 22px; font-weight: 500; line-height: 1; letter-spacing: -.04em; }
     .go { flex: none; width: 44px; height: 44px; border-radius: 999px; display: grid; place-items: center; background: rgb(255 255 255 / .08); transition: transform .5s var(--spring), background .25s, color .25s; }
     .go svg { width: 18px; height: 18px; }
     .primary .go, .feature .go { background: #fff; color: var(--ink); }
@@ -204,11 +237,15 @@
     </a>
 
     <nav aria-label="Links">
-      <a class="link primary rise" href="https://ikako.vip/r/dexikos" rel="sponsored" style="--d:5">
-        <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
-        <span class="label">Join KakoBuy</span>
-        <span class="tag">$410</span>
-        <span class="go">%%ARROW%%</span>
+      <a class="coupon rise" href="https://ikako.vip/r/dexikos" rel="sponsored" style="--d:5">
+        <span class="coupon-main">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/></svg></span>
+          <span class="label">Join KakoBuy</span>
+        </span>
+        <span class="coupon-stub">
+          <svg class="gift" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5A4.8 8 0 0 1 12 8a4.8 8 0 0 1 4.5-5 2.5 2.5 0 0 1 0 5"/></svg>
+          <span class="amount">$410</span>
+        </span>
       </a>
       <a class="link rise" href="https://discord.gg/dexhauls" style="--d:6">
         <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%DISCORD%%"/></svg></span>
