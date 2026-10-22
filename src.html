@@ -52,6 +52,7 @@
 
     /* Profil */
     .who { display: grid; justify-items: center; text-align: center; gap: 0; }
+    .who-text { display: grid; justify-items: center; }
     .avatar {
       width: 104px; height: 104px; border-radius: 999px;
       padding: 3px;
@@ -65,7 +66,7 @@
     .handle { margin: 6px 0 0; font-size: 15px; font-weight: 400; color: rgb(255 255 255 / .55); }
     .bio { margin: 14px 0 0; max-width: 310px; font-size: 16px; line-height: 1.45; color: rgb(255 255 255 / .82); }
 
-    .icons { display: flex; justify-content: center; gap: 10px; }
+    .icons { display: flex; justify-content: center; gap: 10px; margin-top: 22px; }
     .icon {
       width: 50px; height: 50px; border-radius: 999px;
       display: grid; place-items: center;
@@ -89,11 +90,11 @@
     }
     .feature:hover { background: rgb(255 255 255 / .09); }
     .feature:active { transform: scale(.98); }
-    .hand { position: relative; display: block; height: 212px; }
+    .hand { --ch: 138px; position: relative; display: block; height: 212px; }
     .card {
       --gap: 0px; --rot: 0deg; --lift: 0px; --sc: .9;
       position: absolute; left: 50%; top: 52%;
-      width: 108px; height: 138px;
+      width: calc(var(--ch) * .78); height: var(--ch);
       border-radius: 18px;
       background: #fff;
       box-shadow: 0 16px 30px -18px rgb(0 0 0 / .7), 0 1px 2px rgb(0 0 0 / .2);
@@ -104,9 +105,9 @@
       transition-delay: calc(300ms + var(--k) * 70ms);
     }
     .card img { width: 88%; height: 88%; object-fit: contain; pointer-events: none; }
-    .in .card { --gap: 48px; --rot: 7deg; --sc: 1; opacity: 1; transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc)); }
+    .in .card { --gap: calc(var(--ch) * .35); --rot: 7deg; --sc: 1; opacity: 1; transform: translate(-50%, -50%) translateX(calc(var(--i) * var(--gap))) translateY(calc(var(--y) - var(--lift))) rotate(calc(var(--i) * var(--rot))) scale(var(--sc)); }
     .in.ready .card { transition-delay: 0ms; }
-    .in.ready .feature:hover .card, .in.ready .feature.open .card { --gap: 62px; --rot: 10deg; }
+    .in.ready .feature:hover .card, .in.ready .feature.open .card { --gap: calc(var(--ch) * .45); --rot: 10deg; }
     .in.ready .feature:hover .card:not(:hover) { filter: opacity(.55); }
     .in.ready .card:hover { --lift: 20px; --sc: 1.07; z-index: 9; }
     .feature-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 4px 12px 12px 22px; }
@@ -114,7 +115,7 @@
     .feature-title small { display: block; margin-top: 2px; font-size: 13px; font-weight: 300; letter-spacing: 0; color: rgb(255 255 255 / .55); }
 
     /* Odkazy */
-    nav { display: grid; gap: 10px; }
+    nav, .pair { display: grid; gap: 10px; }
     .link {
       display: flex; align-items: center; gap: 14px;
       height: 64px; padding: 0 10px;
@@ -195,6 +196,43 @@
     @media (min-width: 700px) {
       main { padding-top: 72px; }
     }
+
+    /* Phone: everything on one screen, also inside Instagram's and TikTok's own browsers, which leave the least
+       height. Photo beside the name, the finds tile takes what height is left, Discord and the old site share a row. */
+    @media (max-width: 600px) {
+      main {
+        min-height: 100svh;
+        display: flex; flex-direction: column; justify-content: center; gap: 12px;
+        padding: max(14px, env(safe-area-inset-top)) 14px max(14px, env(safe-area-inset-bottom));
+      }
+      .who { grid-template-columns: auto 1fr; justify-items: start; align-items: center; column-gap: 16px; text-align: left; }
+      .who-text { justify-items: start; }
+      .avatar { width: 84px; height: 84px; padding: 2px; margin: 0; }
+      .avatar img { border-width: 2px; }
+      h1 { font-size: 32px; }
+      .handle { margin-top: 2px; font-size: 13px; }
+      .bio { margin-top: 3px; font-size: 14px; }
+      .icons { justify-content: flex-start; gap: 7px; margin-top: 9px; }
+      .icon { width: 36px; height: 36px; }
+      .icon svg { width: 17px; height: 17px; }
+      .feature { flex: 1 1 auto; min-height: 0; max-height: 400px; display: flex; flex-direction: column; border-radius: 24px; }
+      .hand { --ch: clamp(92px, 17svh, 138px); flex: 1; height: auto; min-height: 120px; }
+      .feature-bar { padding: 0 10px 10px 18px; }
+      .feature-title { font-size: 18px; }
+      .feature .go { width: 40px; height: 40px; }
+      .coupon { --stub: 96px; height: 66px; border-radius: 20px; }
+      .coupon-main { gap: 12px; padding-left: 10px; font-size: 17px; }
+      .coupon-main .ic { width: 44px; height: 44px; }
+      .amount { font-size: 20px; }
+      .gift { width: 20px; height: 20px; }
+      .pair { grid-template-columns: 1fr 1fr; }
+      .pair .link { height: 52px; gap: 10px; padding: 0 12px 0 7px; font-size: 15px; }
+      .pair .ic { width: 38px; height: 38px; }
+      .pair .ic svg { width: 18px; height: 18px; }
+      .pair .go, .pair .long { display: none; }
+      .pair .label { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+      footer { display: none; }
+    }
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after { transition-duration: 0s !important; transition-delay: 0s !important; animation: none !important; }
     }
@@ -211,10 +249,10 @@
   <main>
     <header class="who">
       <div class="avatar rise" style="--d:0"><img src="pfp.webp" alt="Dex" width="320" height="320"></div>
+      <div class="who-text">
       <h1 class="rise" style="--d:1">Dex</h1>
       <p class="handle rise" style="--d:1">@dex_hauls</p>
       <p class="bio rise" style="--d:2">Professional hauler.</p>
-    </header>
 
     <div class="icons rise" style="--d:3">
       <a class="icon" href="https://www.instagram.com/dex_hauls/" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%INSTAGRAM%%"/></svg></a>
@@ -222,6 +260,8 @@
       <a class="icon" href="https://www.youtube.com/@Dex_hauls" aria-label="YouTube"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%YOUTUBE%%"/></svg></a>
       <a class="icon" href="https://discord.gg/dexhauls" aria-label="Discord"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%DISCORD%%"/></svg></a>
     </div>
+      </div>
+    </header>
 
     <a class="feature rise" href="https://update.dexfinds.com/?ref=bio" data-site style="--d:4">
       <span class="hand" aria-hidden="true">
@@ -248,9 +288,10 @@
           <span class="amount">$410</span>
         </span>
       </a>
+      <div class="pair">
       <a class="link rise" href="https://discord.gg/dexhauls" style="--d:6">
         <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="%%DISCORD%%"/></svg></span>
-        <span class="label">Discord server</span>
+        <span class="label">Discord<span class="long"> server</span></span>
         <span class="go">%%ARROW%%</span>
       </a>
       <a class="link rise" href="https://dexfinds.com/" style="--d:7">
@@ -258,6 +299,7 @@
         <span class="label">Old Dex Finds</span>
         <span class="go">%%ARROW%%</span>
       </a>
+      </div>
     </nav>
 
     <footer class="rise" style="--d:8">© Dex Finds</footer>
